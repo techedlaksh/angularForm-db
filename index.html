@@ -4,7 +4,27 @@
 	<meta charset="UTF-8">
 	<title>Document</title>
 </head>
-<script type="text/javascript" src="js/angular.min.js"></script>
+<script src="js/angular.min.js"></script>
 <body>
+	<div ng-app="myApp" ng-controller="empController"></div>
+	<form action="">
+		Employee No. <input type="text" ng-model="empNo"/><br />
+		First Name <input type="text" ng-model="fName"/><br />
+		Last Name <input type="text" ng-model="lName"/><br />
+		Department <input type="text" ng-model="dept"/><br />
+		<input type="button" ng-click="insertData()" name="" value="submit"><br />
+	</form>
+	<script>
+		var app = angular.module('myApp', []);
+		app.controller('empController', function($scope, $http){
+			$scope.insertData = function(){
+				$http.post("insert.php", {'empNo': $scope.empNo, 'fName': $scope.fName, 'lName': $scope.lName, 'dept': $scope.dept})
+				.success(function(data, status, headers, config) {
+					console.log("Data inserted.");
+				});
+			}
+			
+		});
+	</script>
 </body>
 </html>
